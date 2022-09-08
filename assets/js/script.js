@@ -1,11 +1,11 @@
 const apiKey = '85527c3ecedc82f36ed8c6efc3a56528';
-let currentForecastEl = document.getElementById('currentForecast');
-let futureForecastEl = document.getElementById('futureForecast');
+let currentDay = document.getElementById('currentDay');
+let comingDays = document.getElementById('comingDays');
 
 function searchHandle(e) {
   e.preventDefault();
-  currentForecastEl.innerHTML = '';
-  futureForecastEl.innerHTML = '';
+  currentDay.innerHTML = '';
+  comingDays.innerHTML = '';
   let cityName = document.getElementById('city-name').value.trim().toLowerCase();
   document.getElementById('city-name').value = '';
   fetchLocation(cityName);
@@ -83,10 +83,8 @@ function fetchWeather(locationObj) {
     .catch(error => console.error(error))
 }
 
-// FUNCTIONALITY FOR RENDERING CONTENT //
 
 function renderWeather(city, currentWeather, forecastWeather) {
-  // render the weather
   let iconSource = 'https://openweathermap.org/img/wn/';
   let header = document.createElement('h2');
   let futureHeader = document.createElement('h2');
@@ -94,39 +92,41 @@ function renderWeather(city, currentWeather, forecastWeather) {
   let info = document.createElement('ul');
   let span = document.createElement('span');
 
-  currentForecastEl.classList.add('border', 'border-dark');
-  currentForecastEl.append(header, icon, info);
-  currentForecastEl.children[0].classList.add('d-inline-block');
-  currentForecastEl.children[0].textContent = `${city} ${currentWeather.date}`;
-  currentForecastEl.children[1].setAttribute('src', `${iconSource}${currentWeather.icon}.png`);
-  currentForecastEl.children[1].classList.add('mb-3');
+  currentDay.classList.add('border', 'border-dark');
+  currentDay.append(header, icon, info);
+  currentDay.children[0].classList.add('d-inline-block');
+  currentDay.children[0].textContent = `${city} ${currentWeather.date}`;
+  currentDay.children[1].setAttribute('src', `${iconSource}${currentWeather.icon}.png`);
+  currentDay.children[1].classList.add('mb-3');
   for (let i = 0; i < Object.keys(currentWeather).length - 2; i++) {
     let list = document.createElement('li');
-    currentForecastEl.children[2].append(list);
+    currentDay.children[2].append(list);
   }
-  currentForecastEl.children[2].children[0].textContent = `Temp: ${currentWeather.temp}°F`;
-  currentForecastEl.children[2].children[1].textContent = `Wind: ${currentWeather.wind}MPH`;
-  currentForecastEl.children[2].children[2].textContent = `Humidity: ${currentWeather.humidity}%`;
+  currentDay.children[2].children[0].textContent = `Temp: ${currentWeather.temp}°F`;
+  currentDay.children[2].children[1].textContent = `Wind: ${currentWeather.wind}MPH`;
+  currentDay.children[2].children[2].textContent = `Humidity: ${currentWeather.humidity}%`;
   if (currentWeather.uvIndex <= 2) {
-    currentForecastEl.children[2].children[3].textContent = 'UV Index: '
-    currentForecastEl.children[2].children[3].append(span);
-    currentForecastEl.children[2].children[3].children[0].setAttribute('style', 'background-color: green; margin-left: 4px; padding: 4px 20px 4px 20px; color: white; border-radius: 5px;');
-    currentForecastEl.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
+    currentDay.children[2].children[3].textContent = 'UV Index: '
+    currentDay.children[2].children[3].append(span);
+    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: green; margin-left: 4px; padding: 4px 20px 4px 20px; color: white; border-radius: 5px;');
+    currentDay.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
+
   } else if (currentWeather.uvIndex <= 5) {
-    currentForecastEl.children[2].children[3].textContent = 'UV Index: '
-    currentForecastEl.children[2].children[3].append(span);
-    currentForecastEl.children[2].children[3].children[0].setAttribute('style', 'background-color: yellow; margin-left: 4px; padding: 4px 20px 4px 20px; color: black; border-radius: 5px;');
-    currentForecastEl.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
+    currentDay.children[2].children[3].textContent = 'UV Index: '
+    currentDay.children[2].children[3].append(span);
+    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: yellow; margin-left: 4px; padding: 4px 20px 4px 20px; color: black; border-radius: 5px;');
+    currentDay.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
+
   } else if (currentWeather.uvIndex >= 8) {
-    currentForecastEl.children[2].children[3].textContent = 'UV Index: '
-    currentForecastEl.children[2].children[3].append(span);
-    currentForecastEl.children[2].children[3].children[0].setAttribute('style', 'background-color: red; margin-left: 4px; padding: 4px 20px 4px 20px; color: black; border-radius: 5px;');
-    currentForecastEl.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
+    currentDay.children[2].children[3].textContent = 'UV Index: '
+    currentDay.children[2].children[3].append(span);
+    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: red; margin-left: 4px; padding: 4px 20px 4px 20px; color: black; border-radius: 5px;');
+    currentDay.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
   }
 
   document.getElementById('future-heading').append(futureHeader);
   document.getElementById('future-heading').children[0].textContent = '5-Day Forecast';
-  futureForecastEl.classList.add('card-deck');
+  comingDays.classList.add('card-deck');
   for (let i = 0; i < forecastWeather.length; i++) {
     let card = document.createElement('div');
     let cardBody = document.createElement('div');
@@ -141,19 +141,19 @@ function renderWeather(city, currentWeather, forecastWeather) {
 
     card.classList.add('card');
     card.setAttribute('style', 'background-color: #314F78; color: white;');
-    futureForecastEl.append(card);
-    futureForecastEl.children[i].append(cardBody);
-    futureForecastEl.children[i].children[0].append(cardHeader);
-    futureForecastEl.children[i].children[0].children[0].textContent = forecastWeather[i].date;
-    futureForecastEl.children[i].children[0].append(cardIcon);
-    futureForecastEl.children[i].children[0].append(cardList);
+    comingDays.append(card);
+    comingDays.children[i].append(cardBody);
+    comingDays.children[i].children[0].append(cardHeader);
+    comingDays.children[i].children[0].children[0].textContent = forecastWeather[i].date;
+    comingDays.children[i].children[0].append(cardIcon);
+    comingDays.children[i].children[0].append(cardList);
     for (let j = 0; j < Object.keys(forecastWeather[i]).length - 2; j ++) {
       let cardInfo = document.createElement('li');
-      futureForecastEl.children[i].children[0].children[2].append(cardInfo);
+      comingDays.children[i].children[0].children[2].append(cardInfo);
     }
-    futureForecastEl.children[i].children[0].children[2].children[0].textContent = `Temperature: ${forecastWeather[i].temp}°F`;
-    futureForecastEl.children[i].children[0].children[2].children[1].textContent = `Wind: ${forecastWeather[i].wind}MPH`;
-    futureForecastEl.children[i].children[0].children[2].children[2].textContent = `Humidity: ${forecastWeather[i].humidity}%`;
+    comingDays.children[i].children[0].children[2].children[0].textContent = `Temperature: ${forecastWeather[i].temp}°F`;
+    comingDays.children[i].children[0].children[2].children[1].textContent = `Wind: ${forecastWeather[i].wind}MPH`;
+    comingDays.children[i].children[0].children[2].children[2].textContent = `Humidity: ${forecastWeather[i].humidity}%`;
 
   }
   
@@ -165,19 +165,19 @@ function renderWeather(city, currentWeather, forecastWeather) {
 }
 
 function generateButton(prevSearch) {
-  let prevSearchButton = document.createElement('button');
-  prevSearchButton.classList.add('btn', 'btn-secondary', 'btn-block');
-  prevSearchButton.setAttribute('type', 'button');
-  prevSearchButton.setAttribute('data-city', `${prevSearch}`);
-  prevSearchButton.textContent = prevSearch;
-  document.getElementById('prevSearch').append(prevSearchButton);
+  let previousSearch = document.createElement('button');
+  previousSearch.classList.add('btn', 'btn-secondary', 'btn-block');
+  previousSearch.setAttribute('type', 'button');
+  previousSearch.setAttribute('data-city', `${prevSearch}`);
+  previousSearch.textContent = prevSearch;
+  document.getElementById('prevSearch').append(previousSearch);
 }
 
 function retrieve() {
   if (localStorage.length > 0) {
     for (let i = 0; i < localStorage.length; i++) {
-      let prevSearchCity = localStorage.key(i);
-      generateButton(prevSearchCity);
+      let previousCitySearch = localStorage.key(i);
+      generateButton(previousCitySearch);
     }
   } else {
     return
@@ -188,10 +188,10 @@ retrieve();
 document.getElementById('getWeather').addEventListener('submit', searchHandle);
 document.querySelectorAll('.btn-secondary').forEach(button => {
   button.addEventListener('click', function() {
-    let selectionCity = this.dataset.city;
-    let selectionObject = JSON.parse(localStorage.getItem(selectionCity));
-    currentForecastEl.innerHTML = '';
-    futureForecastEl.innerHTML = '';
-    renderWeather(selectionCity, selectionObject.currentWeather, selectionObject.forecastWeather);
+    let citySelector = this.dataset.city;
+    let objectSelector = JSON.parse(localStorage.getItem(citySelector));
+    currentDay.innerHTML = '';
+    comingDays.innerHTML = '';
+    renderWeather(citySelector, objectSelector.currentWeather, objectSelector.forecastWeather);
   })
 })
