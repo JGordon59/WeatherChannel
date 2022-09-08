@@ -8,17 +8,17 @@ header {
   background-image: linear-gradient(to right, var(--color-1), var(--color-2));
 }
 
-.custom-btn-primary {
+.primary-button {
     background: var(--color-1);
-    color: white;
+    color: rgb(82, 76, 76);
 }
 
-.custom-btn-primary:hover {
+.primary-button:hover {
     background: var(--color-2);
-    color: white;
+    color: rgb(82, 76, 76);
 }
 
-.custom-btn-secondary {
+.secondary-button {
     background: var(--color-3);
     color: black;
 }
