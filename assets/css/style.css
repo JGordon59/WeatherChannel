@@ -1,7 +1,7 @@
 :root {
   --color-1: #d461e6;
   --color-2: #174c4d;
-  --color-3: #ac8484;
+  
 }
 
 header {
@@ -13,12 +13,7 @@ header {
     color: rgb(82, 76, 76);
 }
 
-.primary-button:hover {
-    background: var(--color-2);
-    color: rgb(82, 76, 76);
-}
-
 .secondary-button {
-    background: var(--color-3);
+    background: var(--color-2);
     color: black;
 }

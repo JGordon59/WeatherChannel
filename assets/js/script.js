@@ -1,6 +1,7 @@
 const apiKey = '85527c3ecedc82f36ed8c6efc3a56528';
-let currentDay = document.getElementById('currentDay');
 let comingDays = document.getElementById('comingDays');
+let currentDay = document.getElementById('currentDay');
+
 
 function searchHandle(e) {
   e.preventDefault();
@@ -35,7 +36,7 @@ function fetchWeather(locationObj) {
     .then(data => {
       let current = {
         icon: data.current.weather[0].icon,
-        date: moment.unix(data.current.dt).format('M[/]D[/]YYYY'),
+        date: moment.unix(data.current.dt).format('YYYY-MM-DDTHH:mm:ss'),
         temp: data.current.temp,
         wind: data.current.wind_speed,
         humidity: data.current.humidity,
@@ -44,35 +45,35 @@ function fetchWeather(locationObj) {
       let forecast = [
         {
           icon: data.daily[1].weather[0].icon,
-          date: moment.unix(data.daily[1].dt).format('M[/]D[/]YYYY'),
+          date: moment.unix(data.daily[1].dt).format('YYYY-MM-DD'),
           temp: data.daily[1].temp.day,
           wind: data.daily[1].wind_speed,
           humidity: data.daily[1].humidity
         },
         {
           icon: data.daily[2].weather[0].icon,
-          date: moment.unix(data.daily[2].dt).format('M[/]D[/]YYYY'),
+          date: moment.unix(data.daily[2].dt).format('YYYY-MM-DD'),
           temp: data.daily[2].temp.day,
           wind: data.daily[2].wind_speed,
           humidity: data.daily[2].humidity
         },
         {
           icon: data.daily[3].weather[0].icon,
-          date: moment.unix(data.daily[3].dt).format('M[/]D[/]YYYY'),
+          date: moment.unix(data.daily[3].dt).format('YYYY-MM-DD'),
           temp: data.daily[3].temp.day,
           wind: data.daily[3].wind_speed,
           humidity: data.daily[3].humidity
         },
         {
           icon: data.daily[4].weather[0].icon,
-          date: moment.unix(data.daily[4].dt).format('M[/]D[/]YYYY'),
+          date: moment.unix(data.daily[4].dt).format('YYYY-MM-DD'),
           temp: data.daily[4].temp.day,
           wind: data.daily[4].wind_speed,
           humidity: data.daily[4].humidity
         },
         {
           icon: data.daily[5].weather[0].icon,
-          date: moment.unix(data.daily[5].dt).format('M[/]D[/]YYYY'),
+          date: moment.unix(data.daily[5].dt).format('YYYY-MM-DD'),
           temp: data.daily[5].temp.day,
           wind: data.daily[5].wind_speed,
           humidity: data.daily[5].humidity
@@ -102,25 +103,75 @@ function renderWeather(city, currentWeather, forecastWeather) {
     let list = document.createElement('li');
     currentDay.children[2].append(list);
   }
-  currentDay.children[2].children[0].textContent = `Temp: ${currentWeather.temp}°F`;
-  currentDay.children[2].children[1].textContent = `Wind: ${currentWeather.wind}MPH`;
+  currentDay.children[2].children[0].textContent = `Temperaure: ${currentWeather.temp}°F`;
+  currentDay.children[2].children[1].textContent = `Wind Speed: ${currentWeather.wind}MPH`;
   currentDay.children[2].children[2].textContent = `Humidity: ${currentWeather.humidity}%`;
-  if (currentWeather.uvIndex <= 2) {
+  if (currentWeather.uvIndex = 0) {
     currentDay.children[2].children[3].textContent = 'UV Index: '
     currentDay.children[2].children[3].append(span);
-    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: green; margin-left: 4px; padding: 4px 20px 4px 20px; color: white; border-radius: 5px;');
+    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: green; border-radius: 3px; margin-left: 4px;  color: white; padding: 4px 20px 4px 20px; ');
     currentDay.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
 
-  } else if (currentWeather.uvIndex <= 5) {
+  } else if (currentWeather.uvIndex = 1) {
     currentDay.children[2].children[3].textContent = 'UV Index: '
     currentDay.children[2].children[3].append(span);
-    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: yellow; margin-left: 4px; padding: 4px 20px 4px 20px; color: black; border-radius: 5px;');
+    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: green; border-radius: 3px; margin-left: 4px;  color: white; padding: 4px 20px 4px 20px; ');
     currentDay.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
 
-  } else if (currentWeather.uvIndex >= 8) {
+  } else if (currentWeather.uvIndex = 2) {
     currentDay.children[2].children[3].textContent = 'UV Index: '
     currentDay.children[2].children[3].append(span);
-    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: red; margin-left: 4px; padding: 4px 20px 4px 20px; color: black; border-radius: 5px;');
+    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: green; border-radius: 3px; margin-left: 4px;  color: white; padding: 4px 20px 4px 20px; ');
+    currentDay.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
+
+  } else if (currentWeather.uvIndex = 3) {
+    currentDay.children[2].children[3].textContent = 'UV Index: '
+    currentDay.children[2].children[3].append(span);
+    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: green; border-radius: 3px; margin-left: 4px;  color: white; padding: 4px 20px 4px 20px; ');
+    currentDay.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
+
+  } else if (currentWeather.uvIndex = 4) {
+    currentDay.children[2].children[3].textContent = 'UV Index: '
+    currentDay.children[2].children[3].append(span);
+    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: yellow; border-radius: 3px; margin-left: 4px;  color: white; padding: 4px 20px 4px 20px; ');
+    currentDay.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
+
+  } else if (currentWeather.uvIndex = 5) {
+    currentDay.children[2].children[3].textContent = 'UV Index: '
+    currentDay.children[2].children[3].append(span);
+    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: yellow; border-radius: 3px; margin-left: 4px;  color: grey; padding: 4px 20px 4px 20px;');
+    currentDay.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
+
+  } else if (currentWeather.uvIndex = 6) {
+    currentDay.children[2].children[3].textContent = 'UV Index: '
+    currentDay.children[2].children[3].append(span);
+    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: yellow; border-radius: 3px; margin-left: 4px;  color: grey; padding: 4px 20px 4px 20px;');
+    currentDay.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
+
+  }  else if (currentWeather.uvIndex = 7) {
+    currentDay.children[2].children[3].textContent = 'UV Index: '
+    currentDay.children[2].children[3].append(span);
+    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: orange; border-radius: 3px; margin-left: 4px;  color: grey; padding: 4px 20px 4px 20px;');
+    currentDay.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
+  } else if (currentWeather.uvIndex = 8) {
+    currentDay.children[2].children[3].textContent = 'UV Index: '
+    currentDay.children[2].children[3].append(span);
+    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: orange; border-radius: 3px; margin-left: 4px;  color: grey; padding: 4px 20px 4px 20px;');
+    currentDay.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
+  } else if (currentWeather.uvIndex = 9) {
+    currentDay.children[2].children[3].textContent = 'UV Index: '
+    currentDay.children[2].children[3].append(span);
+    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: red; border-radius: 3px; margin-left: 4px;  color: grey; padding: 4px 20px 4px 20px;');
+    currentDay.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
+  } else if (currentWeather.uvIndex = 10) {
+    currentDay.children[2].children[3].textContent = 'UV Index: '
+    currentDay.children[2].children[3].append(span);
+    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: red; border-radius: 3px; margin-left: 4px;  color: grey; padding: 4px 20px 4px 20px;');
+    currentDay.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
+  } else if (currentWeather.uvIndex >= 11) {
+    currentDay.children[2].children[3].textContent = 'UV Index: '
+    currentDay.children[2].children[3].append(span);
+    currentDay.children[2].children[3].children[0].setAttribute('style', 'background-color: purple; border-radius: 3px; margin-left: 4px;  color: grey; padding: 4px 20px 4px 20px;');
     currentDay.children[2].children[3].children[0].textContent = `${currentWeather.uvIndex}`;
   }
 
@@ -152,7 +203,7 @@ function renderWeather(city, currentWeather, forecastWeather) {
       comingDays.children[i].children[0].children[2].append(cardInfo);
     }
     comingDays.children[i].children[0].children[2].children[0].textContent = `Temperature: ${forecastWeather[i].temp}°F`;
-    comingDays.children[i].children[0].children[2].children[1].textContent = `Wind: ${forecastWeather[i].wind}MPH`;
+    comingDays.children[i].children[0].children[2].children[1].textContent = `Wind Speed: ${forecastWeather[i].wind}MPH`;
     comingDays.children[i].children[0].children[2].children[2].textContent = `Humidity: ${forecastWeather[i].humidity}%`;
 
   }
